@@ -78,6 +78,37 @@ namespace Peoples_Senai_Manhã.Repositories
             }
         }
 
+        public PeoplesDomain ListarUserNome(string nome)
+        {
+            using (SqlConnection con = new SqlConnection(conexao))
+            {
+                string listandoPorNome = "SELECT IdFuncionarios, Nome, Sobrenome FROM Funcionarios WHERE Nome ='" + nome + "'";
+
+                con.Open();
+
+                SqlDataReader rdr;
+
+                using (SqlCommand cmd = new SqlCommand(listandoPorNome, con))
+                {
+                    rdr = cmd.ExecuteReader();
+
+                    while (rdr.Read())
+                    {
+                        PeoplesDomain peoples = new PeoplesDomain()
+                        {
+                            IdFuncionarios = Convert.ToInt32(rdr[0]),
+                            Nome = rdr[1].ToString(),
+                            SobreNome = rdr[2].ToString()
+                        };
+
+                        return peoples;
+                    }
+
+                    return null;
+                }
+            }
+        }
+
         public List<PeoplesDomain> ListarUsers()
         {
             List<PeoplesDomain> lista = new List<PeoplesDomain>();
@@ -108,6 +139,21 @@ namespace Peoples_Senai_Manhã.Repositories
                 }
 
                 return lista;
+            }
+        }
+
+        public void Deletar(int Id)
+        {
+            using (SqlConnection con = new SqlConnection(conexao))
+            {
+                string excluindo = "DELETE FROM Funcionarios WHERE IdFuncionarios =" + Id;
+
+                con.Open();
+
+                using (SqlCommand cmd = new SqlCommand(excluindo, con))
+                {
+                    cmd.ExecuteNonQuery();
+                }
             }
         }
     }

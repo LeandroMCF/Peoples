@@ -30,10 +30,23 @@ namespace Peoples_Senai_Manhã.Controllers
             return Ok(listaPeople);
         }
 
-        [HttpGet("{id}")]
-        public IActionResult Get(int id)
+        //[HttpGet("{id}")]
+        public IActionResult GetId(int id)
         {
             PeoplesDomain peoplesDomain = _peoples.ListarUserId(id);
+
+            if (peoplesDomain == null)
+            {
+                return NotFound("Nenhum resultado foi encontrado");
+            }
+
+            return Ok(peoplesDomain);
+        }
+
+        [HttpGet("{nome}")]
+        public IActionResult GetNome(string nome)
+        {
+            PeoplesDomain peoplesDomain = _peoples.ListarUserNome(nome);
 
             if (peoplesDomain == null)
             {
@@ -48,6 +61,15 @@ namespace Peoples_Senai_Manhã.Controllers
         {
             _peoples.Cadastrar(people);
 
+            if (people.Nome == null)
+            {
+                return BadRequest("Nome inválido");
+            }
+            else if (people.SobreNome == null)
+            {
+                return BadRequest("Sobrenome inválido");
+            }
+
             return StatusCode(201);
         }
 
@@ -56,7 +78,20 @@ namespace Peoples_Senai_Manhã.Controllers
         {
             _peoples.AtualizarIdUrl(Id, people);
 
+            if (people.Nome == null)
+            {
+                return BadRequest("Nome inválido");
+            }
+
             return Ok("Dados atualizados");
+        }
+
+        [HttpDelete("{Id}")]
+        public IActionResult Delete(int Id)
+        {
+            _peoples.Deletar(Id);
+
+            return Ok("Dados deletados com sucesso");
         }
     }
 }

@@ -119,6 +119,57 @@
 						}
 					},
 					"response": []
+				},
+				{
+					"name": "https://localhost:5001/api/Peoples/Leandro",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://localhost:5001/api/Peoples/Leandro",
+							"protocol": "https",
+							"host": [
+								"localhost"
+							],
+							"port": "5001",
+							"path": [
+								"api",
+								"Peoples",
+								"Leandro"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "https://localhost:5001/api/Peoples/7",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://localhost:5001/api/Peoples/7",
+							"protocol": "https",
+							"host": [
+								"localhost"
+							],
+							"port": "5001",
+							"path": [
+								"api",
+								"Peoples",
+								"7"
+							]
+						}
+					},
+					"response": []
 				}
 			]
 		}
