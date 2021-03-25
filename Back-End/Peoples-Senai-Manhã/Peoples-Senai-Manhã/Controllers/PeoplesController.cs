@@ -30,12 +30,33 @@ namespace Peoples_Senai_Manhã.Controllers
             return Ok(listaPeople);
         }
 
+        [HttpGet("{id}")]
+        public IActionResult Get(int id)
+        {
+            PeoplesDomain peoplesDomain = _peoples.ListarUserId(id);
+
+            if (peoplesDomain == null)
+            {
+                return NotFound("Nenhum resultado foi encontrado");
+            }
+
+            return Ok(peoplesDomain);
+        }
+
         [HttpPost]
         public IActionResult Post(PeoplesDomain people)
         {
             _peoples.Cadastrar(people);
 
             return StatusCode(201);
+        }
+
+        [HttpPut("{Id}")]
+        public IActionResult Put(PeoplesDomain people, int Id)
+        {
+            _peoples.AtualizarIdUrl(Id, people);
+
+            return Ok("Dados atualizados");
         }
     }
 }

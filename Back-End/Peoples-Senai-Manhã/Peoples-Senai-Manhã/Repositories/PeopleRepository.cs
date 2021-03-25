@@ -19,7 +19,17 @@ namespace Peoples_Senai_Manhã.Repositories
 
         public void AtualizarIdUrl(int Id, PeoplesDomain novoPeople)
         {
-            throw new NotImplementedException();
+            using (SqlConnection con = new SqlConnection(conexao))
+            {
+                string atualizando = "UPDATE Funcionarios SET Nome = '" + novoPeople.Nome + "', Sobrenome = '" + novoPeople.SobreNome + "' WHERE IdFuncionarios =" + Id;
+
+                con.Open();
+
+                using (SqlCommand cmd = new SqlCommand(atualizando, con))
+                {
+                    cmd.ExecuteNonQuery();
+                }
+            }
         }
 
         public void Cadastrar(PeoplesDomain novoPeople)
@@ -39,7 +49,33 @@ namespace Peoples_Senai_Manhã.Repositories
 
         public PeoplesDomain ListarUserId(int id)
         {
-            throw new NotImplementedException();
+            using (SqlConnection con = new SqlConnection(conexao))
+            {
+                string listandoPorId = "SELECT IdFuncionarios, Nome, Sobrenome FROM Funcionarios WHERE IdFuncionarios =" + id;
+
+                con.Open();
+
+                SqlDataReader rdr;
+
+                using (SqlCommand cmd = new SqlCommand(listandoPorId, con))
+                {
+                    rdr = cmd.ExecuteReader();
+
+                    if (rdr.Read())
+                    {
+                        PeoplesDomain peoplesDomain = new PeoplesDomain
+                        {
+                            IdFuncionarios = Convert.ToInt32(rdr[0]),
+                            Nome = rdr[1].ToString(),
+                            SobreNome = rdr[2].ToString()
+                        };
+
+                        return peoplesDomain;
+                    }
+
+                    return null;
+                }
+            }
         }
 
         public List<PeoplesDomain> ListarUsers()
