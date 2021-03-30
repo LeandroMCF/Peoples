@@ -53,7 +53,7 @@ namespace Peoples_Senai_Manhã.Controllers
                 return NotFound("Nenhum resultado foi encontrado");
             }
 
-            return Ok(peoplesDomain);
+            return Ok("Nome : " + peoplesDomain.Nome);
         }
 
         [HttpPost]

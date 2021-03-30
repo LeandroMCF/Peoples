@@ -97,8 +97,7 @@ namespace Peoples_Senai_Manhã.Repositories
                         PeoplesDomain peoples = new PeoplesDomain()
                         {
                             IdFuncionarios = Convert.ToInt32(rdr[0]),
-                            Nome = rdr[1].ToString(),
-                            SobreNome = rdr[2].ToString()
+                            Nome = rdr[1].ToString() + " " + rdr[2].ToString()
                         };
 
                         return peoples;
